@@ -1,0 +1,15 @@
+.notFound {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorText {
+  padding: 1em;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  color: #059b82;
+}

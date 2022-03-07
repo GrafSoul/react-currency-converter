@@ -1,0 +1,22 @@
+.footer {
+  border-top: 1px solid #ccc;
+  min-width: 320px;
+
+  .copyRight {
+    margin-top: 0.8rem;
+    margin-bottom: 0.9rem;
+    padding: 0 0.5rem;
+    font-size: 0.9em;
+    text-align: center;
+    color: #004d40;
+  }
+
+  .copyLink {
+    color: #004d40;
+
+    &:hover {
+      text-decoration: underline;
+      color: #069e85;
+    }
+  }
+}

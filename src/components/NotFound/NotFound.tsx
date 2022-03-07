@@ -1,9 +1,15 @@
 import React from "react";
 
+import classes from "./NotFound.module.scss";
+
 const NotFound: React.FC = () => {
   return (
-    <div>
-      <h1>Ошибка 404 - Страница не найдена! / Error 404 - Page not found!</h1>
+    <div className={classes.notFound}>
+      <h1 className={classes.errorText}>
+        Ошибка 404 - Страница не найдена!
+        <br />
+        Error 404 - Page not found!
+      </h1>
     </div>
   );
 };
