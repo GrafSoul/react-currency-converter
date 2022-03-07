@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
+import "./App.css";
+
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import NotFound from "./components/NotFound/NotFound";
+
+import Converter from "./Converter/Converter";
+import Currencies from "./Currencies/Currencies";
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Currencies />} />
+        <Route path="/converter" element={<Converter />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;

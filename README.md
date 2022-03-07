@@ -3,7 +3,6 @@
 Sample application using React and Typescript.
 
 ## TODO
-
 Приложение для конвертирования валют.
 
 Приложение должно состоять из двух страниц:
