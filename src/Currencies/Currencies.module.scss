@@ -1,13 +1,28 @@
 .currencies {
-  .currencyForm {
-  }
+    padding: 1rem;
 
-  .labelCurrency {
-  }
+    .currencyForm {
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 1em;
+        border: 1px solid #004d40;
+        font-size: 1.2em;
+    }
 
-  .selectCurrency {
-  }
+    .labelCurrency {
+        display: inline-block;
+        margin-right: 1em;
+    }
 
-  .currenciesList {
-  }
+    .selectCurrency {
+    }
+
+    .currenciesList {
+        height: 75vh;
+        overflow-x: auto;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #004d40;
+        font-size: 1em;
+    }
 }

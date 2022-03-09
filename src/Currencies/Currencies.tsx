@@ -1,8 +1,31 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+
+import { useAllCurrencies } from '../hooks/useAllCurrencies';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 import classes from './Currencies.module.scss';
 
+type CurrencyProps = {
+    id: string;
+    code: string;
+    value: number;
+};
+
 const Currencies: React.FC = () => {
+    const [currentCurrency, setCurrentCurrency] = useState<string>('USD');
+    const getAllCurrencies = useAllCurrencies();
+    const { data, loading, error } = useTypedSelector((state: any) => state.currencies);
+
+    useEffect(() => {
+        getAllCurrencies();
+    }, []);
+
+    const handleChangeCurrency = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        event.preventDefault();
+        setCurrentCurrency(event.target.value);
+    };
+
     return (
         <div className={classes.currencies}>
             <form className={classes.currencyForm}>
@@ -10,23 +33,37 @@ const Currencies: React.FC = () => {
                     Выберите базовую валюту
                 </label>
 
-                <select className={classes.selectCurrency} name="currency" id="currency">
-                    <option value="RUB">RUB</option>
-                    <option value="USD">USD</option>
-                    <option value="JPY">JPY</option>
-                    <option value="CAD">CAD</option>
-                    <option value="DKK">DKK</option>
+                <select
+                    onChange={handleChangeCurrency}
+                    value={currentCurrency}
+                    className={classes.selectCurrency}
+                    name="currency"
+                    id="currency"
+                >
+                    {!error &&
+                        !loading &&
+                        data.map((item: CurrencyProps) => (
+                            <option key={item.id} value={item.code}>
+                                {item.code}
+                            </option>
+                        ))}
                 </select>
             </form>
 
-            <div>
-                <ul className={classes.currenciesList}>
-                    <li>1 USD = 63.49 RUB</li>
-                    <li>1 USD = 63.49 RUB</li>
-                    <li>1 USD = 63.49 RUB</li>
-                    <li>1 USD = 63.49 RUB</li>
-                </ul>
-            </div>
+            {error && <h3>{error}</h3>}
+            {loading && <h3>Loading...</h3>}
+
+            {!error && !loading && (
+                <div className={classes.currenciesList}>
+                    <ul>
+                        {data.map((item: CurrencyProps) => (
+                            <li key={item.id}>
+                                1 {currentCurrency} = {item.value.toFixed(2)} {item.code}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 };

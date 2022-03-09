@@ -7,8 +7,8 @@ const Converter: React.FC = () => {
         <div className={classes.converter}>
             <form className={classes.converterForm}>
                 <label htmlFor="converter" className={classes.labelConverter}>
-                    Введите текст по шаблону "15 usd in rub" указав свою сумму и любые из
-                    существующих валют
+                    Введите текст по шаблону 15 usd in rub указав свою сумму и любые из существующих
+                    валют
                 </label>
                 <input
                     type="text"
