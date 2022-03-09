@@ -14,3 +14,9 @@ export const getAllCurrenciesData = async () => {
     const result = convertData(data.data.data);
     return result;
 };
+
+export const getSelectCurrenciesData = async (currency: string) => {
+    const data = await API.get(`?apikey=${apiKey}&base_currency=${currency}`);
+    const result = convertData(data.data.data);
+    return result;
+};

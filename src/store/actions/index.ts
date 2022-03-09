@@ -10,8 +10,13 @@ type GetCurrenciesAction = {
     type: ActionType.GET_CURRENCIES;
 };
 
-type GetCurrenciesSuccessAction = {
-    type: ActionType.GET_CURRENCIES_SUCCESS;
+type GetAllCurrenciesAction = {
+    type: ActionType.GET_ALL_CURRENCIES;
+    payload: Currency[];
+};
+
+type GetSelectCurrenciesAction = {
+    type: ActionType.GET_SELECT_CURRENCIES;
     payload: Currency[];
 };
 
@@ -20,13 +25,8 @@ type GetCurrenciesErrorAction = {
     payload: string;
 };
 
-type GetSelectCurrenciesAction = {
-    type: ActionType.GET_SELECT_CURRENCIES;
-    payload: Currency[];
-};
-
 export type Action =
     | GetCurrenciesAction
-    | GetCurrenciesSuccessAction
-    | GetCurrenciesErrorAction
-    | GetSelectCurrenciesAction;
+    | GetAllCurrenciesAction
+    | GetSelectCurrenciesAction
+    | GetCurrenciesErrorAction;

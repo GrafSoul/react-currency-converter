@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useAllCurrencies } from '../hooks/useAllCurrencies';
+import { useSelectCurrencies } from '../hooks/useSelectCurrencies';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
 import classes from './Currencies.module.scss';
@@ -15,6 +16,8 @@ type CurrencyProps = {
 const Currencies: React.FC = () => {
     const [currentCurrency, setCurrentCurrency] = useState<string>('USD');
     const getAllCurrencies = useAllCurrencies();
+    const getSelectCurrencies = useSelectCurrencies();
+
     const { data, loading, error } = useTypedSelector((state: any) => state.currencies);
 
     useEffect(() => {
@@ -24,6 +27,7 @@ const Currencies: React.FC = () => {
     const handleChangeCurrency = (event: React.ChangeEvent<HTMLSelectElement>) => {
         event.preventDefault();
         setCurrentCurrency(event.target.value);
+        getSelectCurrencies(event.target.value);
     };
 
     return (
@@ -51,14 +55,20 @@ const Currencies: React.FC = () => {
             </form>
 
             {error && <h3>{error}</h3>}
-            {loading && <h3>Loading...</h3>}
+
+            {loading && (
+                <div className={classes.currenciesLoading}>
+                    <h3>Loading...</h3>
+                </div>
+            )}
 
             {!error && !loading && (
                 <div className={classes.currenciesList}>
                     <ul>
                         {data.map((item: CurrencyProps) => (
                             <li key={item.id}>
-                                1 {currentCurrency} = {item.value.toFixed(2)} {item.code}
+                                1 <b>{currentCurrency}</b> = {item.value.toFixed(2)}{' '}
+                                <b>{item.code}</b>
                             </li>
                         ))}
                     </ul>
