@@ -1,5 +1,9 @@
 import { Dispatch } from 'redux';
-import { getAllCurrenciesData, getSelectCurrenciesData } from '../../services/currencies';
+import {
+    getAllCurrenciesData,
+    getSelectCurrenciesData,
+    getConvertCurrenciesData,
+} from '../../services/currencies';
 
 import { ActionType } from '../actions/types';
 import { Action } from '../actions';
@@ -47,3 +51,26 @@ export const getSelectCurrencies = (currency: string) => async (dispatch: Dispat
         });
     }
 };
+
+export const getConvertCurrencies =
+    (currency: string, currencies: string) => async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.GET_CURRENCIES,
+        });
+        try {
+            const data = await getConvertCurrenciesData(currency, currencies)
+                .then((res: any) => {
+                    return res;
+                })
+                .catch((error: any) => {
+                    console.log(error.message);
+                });
+
+            dispatch({ type: ActionType.GET_CONVERT_CURRENCIES, payload: data });
+        } catch (error: any) {
+            dispatch({
+                type: ActionType.GET_CURRENCIES_ERROR,
+                payload: error.message,
+            });
+        }
+    };

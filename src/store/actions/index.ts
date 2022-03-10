@@ -20,6 +20,11 @@ type GetSelectCurrenciesAction = {
     payload: Currency[];
 };
 
+type GetConvertCurrenciesAction = {
+    type: ActionType.GET_CONVERT_CURRENCIES;
+    payload: Currency[];
+};
+
 type GetCurrenciesErrorAction = {
     type: ActionType.GET_CURRENCIES_ERROR;
     payload: string;
@@ -29,4 +34,5 @@ export type Action =
     | GetCurrenciesAction
     | GetAllCurrenciesAction
     | GetSelectCurrenciesAction
+    | GetConvertCurrenciesAction
     | GetCurrenciesErrorAction;
