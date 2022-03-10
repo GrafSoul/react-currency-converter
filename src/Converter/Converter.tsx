@@ -13,36 +13,49 @@ const Converter: React.FC = () => {
     const [numOutCurrencies, setNumOutCurrency] = useState<number>(0);
     const [inCurrency, setInCurrency] = useState<string>('');
     const [outCurrency, setOutCurrency] = useState<string>('');
+
     const [isReady, setIsReady] = useState<boolean>(false);
 
     const getConvertCurrencies = useConvertCurrencies();
-    const { data } = useTypedSelector((state: any) => state.currencies);
+    const { data, loading, error } = useTypedSelector((state) => state.currencies);
 
     useEffect(() => {
-        getConvertCurrencies(inCurrency, outCurrency);
-    }, []);
-
-    const handleSubmit = () => {
-        const arrText = textForConvert.split(' ');
-        setNumInCurrency(+arrText[0]);
-        setInCurrency(arrText[1].toUpperCase());
-        setOutCurrency(arrText[3].toUpperCase());
-
-        getConvertCurrencies(inCurrency, outCurrency);
-
-        setTextForConvert('');
-        setNumOutCurrency(+arrText[0] * data[0].value.toFixed(2));
-    };
-
-    const handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTextForConvert(event.target.value);
         const textReady = /([0-9]\s)([a-z]{3}\s)([in]{2}\s)([a-z]{3})$/.test(textForConvert);
+        const arrText = textForConvert.split(' ');
 
-        if (textReady) {
+        if (arrText.length === 4) {
+            setNumInCurrency(+arrText[0]);
+            setInCurrency(arrText[1].toUpperCase());
+            setOutCurrency(arrText[3].toUpperCase());
+        }
+
+        if (!textReady) {
             setIsReady(true);
         } else {
             setIsReady(false);
         }
+    }, [textForConvert]);
+
+    useEffect(() => {
+        if (data.length > 0) {
+            setNumOutCurrency(numInCurrencies * +data[0].value);
+        }
+    }, [data]);
+
+    const handleSubmit = () => {
+        getConvertCurrencies(inCurrency, outCurrency);
+        setTextForConvert('');
+    };
+
+    const handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTextForConvert(event.target.value);
+    };
+
+    const handleReset = () => {
+        setNumInCurrency(0);
+        setNumOutCurrency(0);
+        setInCurrency('');
+        setOutCurrency('');
     };
 
     return (
@@ -63,20 +76,39 @@ const Converter: React.FC = () => {
                 />
                 <button
                     onClick={handleSubmit}
-                    className={[
-                        classes.btnConverter,
-                        textForConvert === '' || isReady ? classes.disabled : '',
-                    ].join(' ')}
-                    disabled={textForConvert === '' || isReady}
+                    className={[classes.btnConverter, isReady ? classes.disabled : ''].join(' ')}
+                    disabled={isReady}
+                    title="Получить данные"
                 >
                     Получить
                 </button>
             </div>
 
-            <div className={classes.converterResult}>
-                Результат: {numInCurrencies} <b>{inCurrency}</b> ={numOutCurrencies}
-                <b>{outCurrency}</b>
-            </div>
+            {error && (
+                <div className={classes.converterResult}>
+                    <h3>{error}</h3>
+                </div>
+            )}
+
+            {loading && (
+                <div className={classes.converterResult}>
+                    <h3>Loading...</h3>
+                </div>
+            )}
+
+            {!error && !loading && numOutCurrencies !== 0 && (
+                <div className={classes.converterResult}>
+                    Результат: {numInCurrencies} <b>{inCurrency}</b> = {numOutCurrencies.toFixed(2)}{' '}
+                    <b>{outCurrency}</b>
+                    <button
+                        className={classes.btnReset}
+                        onClick={handleReset}
+                        title="Удалить запись"
+                    >
+                        X
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

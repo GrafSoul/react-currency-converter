@@ -19,6 +19,5 @@ export const getConvertCurrenciesData = async (currency: string, currencies: str
         `?apikey=${apiKey}&base_currency=${currency}&currencies=${currencies}`,
     );
     const result = convertData(data.data.data);
-    console.log(result);
     return result;
 };

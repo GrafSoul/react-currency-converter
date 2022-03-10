@@ -30,6 +30,9 @@ const reducer = (state: Currencies = initialState, action: Action) => {
         case ActionType.GET_SELECT_CURRENCIES:
             return { loading: false, error: null, data: action.payload };
 
+        case ActionType.GET_CONVERT_CURRENCIES:
+            return { loading: false, error: null, data: action.payload };
+
         case ActionType.GET_CURRENCIES_ERROR:
             return { loading: false, error: action.payload, data: [] };
 
