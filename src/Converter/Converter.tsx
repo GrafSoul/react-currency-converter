@@ -37,7 +37,7 @@ const Converter: React.FC = () => {
     }, [textForConvert]);
 
     useEffect(() => {
-        if (data.length > 0) {
+        if (data && data.length > 0) {
             setNumOutCurrency(numInCurrencies * +data[0].value);
         }
     }, [data]);
@@ -86,7 +86,7 @@ const Converter: React.FC = () => {
 
             {error && (
                 <div className={classes.converterResult}>
-                    <h3>{error}</h3>
+                    <h3>Неверно указаны данные</h3>
                 </div>
             )}
 

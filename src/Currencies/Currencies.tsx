@@ -54,7 +54,7 @@ const Currencies: React.FC = () => {
                 </select>
             </form>
 
-            {error && <h3>{error}</h3>}
+            {error && <h3>Ошибка получения данных</h3>}
 
             {loading && (
                 <div className={classes.currenciesLoading}>

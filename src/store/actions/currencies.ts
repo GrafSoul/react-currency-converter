@@ -19,6 +19,10 @@ export const getAllCurrencies = () => async (dispatch: Dispatch<Action>) => {
             })
             .catch((error: any) => {
                 console.log(error.message);
+                dispatch({
+                    type: ActionType.GET_CURRENCIES_ERROR,
+                    payload: error.message,
+                });
             });
 
         dispatch({ type: ActionType.GET_ALL_CURRENCIES, payload: data });
@@ -41,6 +45,10 @@ export const getSelectCurrencies = (currency: string) => async (dispatch: Dispat
             })
             .catch((error: any) => {
                 console.log(error.message);
+                dispatch({
+                    type: ActionType.GET_CURRENCIES_ERROR,
+                    payload: error.message,
+                });
             });
 
         dispatch({ type: ActionType.GET_SELECT_CURRENCIES, payload: data });
@@ -63,7 +71,10 @@ export const getConvertCurrencies =
                     return res;
                 })
                 .catch((error: any) => {
-                    console.log(error.message);
+                    dispatch({
+                        type: ActionType.GET_CURRENCIES_ERROR,
+                        payload: error.message,
+                    });
                 });
 
             dispatch({ type: ActionType.GET_CONVERT_CURRENCIES, payload: data });
