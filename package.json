@@ -1,6 +1,5 @@
 {
   "name": "react-currency-converter",
-  "homepage": "https://grafsoul.github.io/react-currency-converter",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
