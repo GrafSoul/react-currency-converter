@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useConvertCurrencies } from '../hooks/useConvertCurrencies';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
+import ConverterForm from './ConverterForm';
+
 import { ToastContainer, toast } from 'material-react-toastify';
 
 import classes from './Converter.module.scss';
@@ -66,29 +68,13 @@ const Converter: React.FC = () => {
 
     return (
         <div className={classes.converter}>
-            <div className={classes.converterForm}>
-                <label htmlFor="converter" className={classes.labelConverter}>
-                    Введите текст по шаблону -{' '}
-                    <span className={classes.textTemplate}>15 usd in rub</span>, <br />
-                    указав сумму и любые из существующих валют
-                </label>
-                <input
-                    type="text"
-                    id="converter"
-                    name="converter"
-                    value={textForConvert}
-                    onChange={handleChangeText}
-                    className={classes.inputConverter}
-                />
-                <button
-                    onClick={handleSubmit}
-                    className={[classes.btnConverter, isReady ? classes.disabled : ''].join(' ')}
-                    disabled={isReady}
-                    title="Получить данные"
-                >
-                    Получить
-                </button>
-            </div>
+            <ConverterForm
+                classes={classes}
+                textForConvert={textForConvert}
+                changeText={handleChangeText}
+                handleSubmit={handleSubmit}
+                isReady={isReady}
+            />
 
             {loading && (
                 <div className={classes.converterResult}>
