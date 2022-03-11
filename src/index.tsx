@@ -8,8 +8,6 @@ import 'material-react-toastify/dist/ReactToastify.css';
 import App from './App';
 
 import reportWebVitals from './reportWebVitals';
-// basename={process.env.PUBLIC_URL}
-// "homepage": https://grafsoul.github.io/react-currency-converter'
 
 ReactDOM.render(
     <React.StrictMode>

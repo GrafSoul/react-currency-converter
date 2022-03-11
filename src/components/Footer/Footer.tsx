@@ -11,6 +11,7 @@ const Footer: React.FC = () => {
             <p className={classes.copyRight}>
                 © {copyRightYear} | Конвертер валют | Created by{' '}
                 <a
+                    id="footer-link"
                     className={classes.copyLink}
                     href="https://github.com/GrafSoul/react-currency-converter"
                     rel="noreferrer"
