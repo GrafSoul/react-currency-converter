@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 
+import { ToastContainer, toast } from 'material-react-toastify';
+
 import { useAllCurrencies } from '../hooks/useAllCurrencies';
 import { useSelectCurrencies } from '../hooks/useSelectCurrencies';
 import { useTypedSelector } from '../hooks/useTypedSelector';
@@ -23,6 +25,10 @@ const Currencies: React.FC = () => {
     useEffect(() => {
         getAllCurrencies();
     }, []);
+
+    useEffect(() => {
+        if (error) toast.error('Ошибка получения данных!');
+    }, [error]);
 
     const handleChangeCurrency = (event: React.ChangeEvent<HTMLSelectElement>) => {
         event.preventDefault();
@@ -54,8 +60,6 @@ const Currencies: React.FC = () => {
                 </select>
             </form>
 
-            {error && <h3>Ошибка получения данных</h3>}
-
             {loading && (
                 <div className={classes.currenciesLoading}>
                     <h3>Loading...</h3>
@@ -74,6 +78,18 @@ const Currencies: React.FC = () => {
                     </ul>
                 </div>
             )}
+
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 };

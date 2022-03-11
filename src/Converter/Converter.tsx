@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useConvertCurrencies } from '../hooks/useConvertCurrencies';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
+import { ToastContainer, toast } from 'material-react-toastify';
+
 import classes from './Converter.module.scss';
 
 const Converter: React.FC = () => {
@@ -41,6 +43,10 @@ const Converter: React.FC = () => {
             setNumOutCurrency(numInCurrencies * +data[0].value);
         }
     }, [data]);
+
+    useEffect(() => {
+        if (error) toast.error('Валюты указаны неверно!');
+    }, [error]);
 
     const handleSubmit = () => {
         getConvertCurrencies(inCurrency, outCurrency);
@@ -84,12 +90,6 @@ const Converter: React.FC = () => {
                 </button>
             </div>
 
-            {error && (
-                <div className={classes.converterResult}>
-                    <h3>Неверно указаны данные</h3>
-                </div>
-            )}
-
             {loading && (
                 <div className={classes.converterResult}>
                     <h3>Loading...</h3>
@@ -109,6 +109,18 @@ const Converter: React.FC = () => {
                     </button>
                 </div>
             )}
+
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 };
