@@ -8,6 +8,7 @@ import { useSelectCurrencies } from '../hooks/useSelectCurrencies';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
 import CurrencyItem from './CurrencyItem';
+import CurrencySelect from './CurrencySelect';
 
 import classes from './Currencies.module.scss';
 
@@ -19,6 +20,7 @@ type CurrencyProps = {
 
 const Currencies: React.FC = () => {
     const [currentCurrency, setCurrentCurrency] = useState<string>('USD');
+
     const getAllCurrencies = useAllCurrencies();
     const getSelectCurrencies = useSelectCurrencies();
 
@@ -40,27 +42,14 @@ const Currencies: React.FC = () => {
 
     return (
         <div className={classes.currencies}>
-            <form className={classes.currencyForm}>
-                <label htmlFor="currency" className={classes.labelCurrency}>
-                    Выберите базовую валюту
-                </label>
-
-                <select
-                    onChange={handleChangeCurrency}
-                    value={currentCurrency}
-                    className={classes.selectCurrency}
-                    name="currency"
-                    id="currency"
-                >
-                    {!error &&
-                        !loading &&
-                        data.map((item: CurrencyProps) => (
-                            <option key={item.id} value={item.code}>
-                                {item.code}
-                            </option>
-                        ))}
-                </select>
-            </form>
+            <CurrencySelect
+                classes={classes}
+                error={error}
+                loading={loading}
+                currentCurrency={currentCurrency}
+                currencies={data}
+                changeCurrency={handleChangeCurrency}
+            />
 
             {loading && (
                 <div className={classes.currenciesLoading}>
