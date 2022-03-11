@@ -7,6 +7,8 @@ import { useAllCurrencies } from '../hooks/useAllCurrencies';
 import { useSelectCurrencies } from '../hooks/useSelectCurrencies';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
+import CurrencyItem from './CurrencyItem';
+
 import classes from './Currencies.module.scss';
 
 type CurrencyProps = {
@@ -70,10 +72,12 @@ const Currencies: React.FC = () => {
                 <div className={classes.currenciesList}>
                     <ul>
                         {data.map((item: CurrencyProps) => (
-                            <li key={item.id}>
-                                1 <b>{currentCurrency}</b> = {item.value.toFixed(2)}{' '}
-                                <b>{item.code}</b>
-                            </li>
+                            <CurrencyItem
+                                id={item.id}
+                                currentCurrency={currentCurrency}
+                                value={item.value}
+                                code={item.code}
+                            />
                         ))}
                     </ul>
                 </div>
